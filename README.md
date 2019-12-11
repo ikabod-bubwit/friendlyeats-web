@@ -23,6 +23,20 @@ Follow the [Cloud Firestore Web Codelab][codelab] to set up this sample.
 
 [![Build Status](https://travis-ci.org/firebase/friendlyeats-web.svg?branch=master)](https://travis-ci.org/firebase/friendlyeats-web)
 
+## To install indexes
+
+```bash
+firebase deploy --only firestore:indexes 
+```
+
+## Secure your data
+
+[See this Codelab][https://codelabs.developers.google.com/codelabs/firestore-web/#11]
+
+```bash
+firebase deploy --only firestore:rules
+```
+
 [codelab]: https://codelabs.developers.google.com/codelabs/firestore-web
 [quickstart]: https://github.com/firebase/quickstart-js/tree/master/firestore
 [firestore-docs]: https://firebase.google.com/docs/firestore/
