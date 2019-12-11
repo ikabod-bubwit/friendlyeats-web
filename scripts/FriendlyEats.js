@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 'use strict';
-
+const _auth = firebase.auth();
 /**
  * Initializes the FriendlyEats app.
  */
@@ -29,6 +29,7 @@ function FriendlyEats() {
   this.dialogs = {};
 
   var that = this;
+  /*
   firebase.auth().signInAnonymously().then(function() {
     that.initTemplates();
     that.initRouter();
@@ -37,6 +38,34 @@ function FriendlyEats() {
   }).catch(function(err) {
     console.log(err);
   });
+  */
+  
+  //  Disabled anonymous login
+  console.log("Login via auth_phone if page remains blank", _auth.currentUser)
+
+  // Listening for auth state changes.
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      console.log('AuthStateChanged:', user);
+      console.log(user.uid);
+      
+      user.getIdToken()
+      .then((idToken) => {
+        // idToken can be passed back to server.
+        console.log('Token Id:', idToken)
+      })
+      .catch((error) => {
+        // Error occurred.
+        console.error(error);
+        
+      });
+    
+    }
+    that.initTemplates();
+    that.initRouter();
+    that.initReviewDialog();
+    that.initFilterDialog();  
+  }); 
 }
 
 /**
@@ -193,5 +222,6 @@ FriendlyEats.prototype.data = {
 };
 
 window.onload = function() {
+  console.log('current user:', _auth.currentUser)
   window.app = new FriendlyEats();
 };
